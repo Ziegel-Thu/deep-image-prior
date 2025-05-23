@@ -1,17 +1,19 @@
-name: deep-image-prior
+name: DIP
 channels:
-- pytorch
-- defaults
+  - conda-forge
+  - pytorch
+  - defaults
 dependencies:
-- jupyter
-- nb_conda
-- numpy
-- pyyaml
-- mkl
-- setuptools
-- cmake
-- cffi
-- pytorch=0.4
-- matplotlib
-- scikit-image
-- torchvision
+  - python=3.8  # 由于M1 Mac对Python 3.6支持有限，升级到3.8
+  - pytorch
+  - torchvision
+  - jupyter
+  - nb_conda
+  - numpy
+  - scipy
+  - matplotlib
+  - scikit-image
+  - pip
+  - setuptools
+  - cmake
+  - cffi
