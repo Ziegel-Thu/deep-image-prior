@@ -20,7 +20,7 @@ datasets = {
 from glob import glob
 # g = sorted(glob('../image_compare/data/sr/Set5/x4/*'))
 
-from skimage.measure import compare_psnr
+from skimage.metrics import peak_signal_noise_ratio as compare_psnr
 # our 
 stats = {}
 imsize  = -1
