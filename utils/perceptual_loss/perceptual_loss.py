@@ -6,11 +6,13 @@ import torchvision.models as models
 from .matcher import Matcher
 from collections import OrderedDict
 
-from torchvision.models.vgg import model_urls
 from torchvision.models import vgg19
 from torch.autograd import Variable
 
 from .vgg_modified import VGGModified
+
+# 添加预训练模型的 URL
+VGG19_URL = 'https://download.pytorch.org/models/vgg19-dcbb9e9d.pth'
 
 def get_pretrained_net(name):
     """Loads pretrained network"""
@@ -20,13 +22,11 @@ def get_pretrained_net(name):
             os.system('wget -O alexnet-torch_py3.pth --no-check-certificate -nc https://box.skoltech.ru/index.php/s/77xSWvrDN0CiQtK/download')
         return torch.load('alexnet-torch_py3.pth')
     elif name == 'vgg19_caffe':
-        if not os.path.exists('vgg19-caffe-py3.pth'):
-            print('Downloading VGG-19')
-            os.system('wget -O vgg19-caffe-py3.pth --no-check-certificate -nc https://box.skoltech.ru/index.php/s/HPcOFQTjXxbmp4X/download')
-        
-        vgg = get_vgg19_caffe()
-        
-        return vgg
+        net = VGGModified()
+        # 使用新的 URL 常量
+        state_dict = torch.hub.load_state_dict_from_url(VGG19_URL)
+        net.load_state_dict(state_dict)
+        return net
     elif name == 'vgg16_caffe':
         if not os.path.exists('vgg16-caffe-py3.pth'):
             print('Downloading VGG-16')
